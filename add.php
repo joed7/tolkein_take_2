@@ -397,37 +397,6 @@ function showAddBooksFormAndDone($charid,$name,$bookids,$booktitles){
 	return $out;
 
 }
-function showCharacterForm(){
-	return "
-	<form method=post action=add.php>
-
-	<table>
-	<tr>
-	Add character to Books
-	</tr>
-	<tr>
-		<td>Character Name</td>
-		<td><input type=\"text\" id=\"cname\" name=\"cname\"></td>
-	</tr>	
-	<tr>
-		<td>Race</td>
-		<td><input type=\"text\" id=\"race\" name=\"race\"></td>
-	</tr>	
-	<tr>
-		<td>Side</td>
-		<td>  <input type=\"radio\" name=\"side\" value=\"good\"> Good
-  			  <input type=\"radio\" name=\"side\" value=\"evil\"> Bad
-  		</td>
-  	</tr>
-	<tr>
-		<td>
-		<input id=\"s\" name=\"s\" type=\"hidden\" value=\"5\">
-		<input type=\"submit\" value=\"submit\">
-		</td>
-	</tr>
-	</table>
-	</form>";
-}
 
 function showAddPictureForm($name,$charid){
 		return "
