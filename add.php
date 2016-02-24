@@ -253,7 +253,7 @@ function authenticate($db,$postUser,$postPass){
 			$epass=hash('sha256',$postPass.$salt);	
 
 
-			if( $epass == $postPass){
+			if( $epass == $password){
 				$_SESSION['userid']=$userid;
 				$_SESSION['email']=$email;	
 				$_SESSION['authenticated']="yes";							
