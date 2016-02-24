@@ -1,6 +1,5 @@
 <?php
 
-
 include_once('header.php');
 
 echo showLoginForm();
@@ -8,7 +7,7 @@ echo showLoginForm();
 
 function showLoginForm(){
 	return "
-	<form method=post action=login.php>
+	<form method=post action=add.php>
 
 	<table>
 	<tr>
