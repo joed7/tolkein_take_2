@@ -1,5 +1,5 @@
 <?php
-$header = ''
+$header = '';
 
 $header = $header. "<html><head</head><body>";
 $header = $header. "<div align=center><a href=index.php>Story List|</a>";
