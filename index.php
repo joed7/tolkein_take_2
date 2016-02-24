@@ -19,8 +19,7 @@ if($s == Null){
 icheck($sid);
 icheck($bid);
 icheck($cid);
-icheck($charid);
-icheck($bookid);
+
 
 
 include_once('header.php');
