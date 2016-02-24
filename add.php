@@ -1,6 +1,6 @@
 <?php
 
-start_session();
+session_start();
 include_once('header.php');
 include_once('/var/www/html/hw5/hw5-lib.php');
 
