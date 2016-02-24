@@ -34,7 +34,7 @@ echo $out;
 
 function handleCharacterForm(){
 		global $s;
-		global  $out = '';
+		global  $out;
 
 		switch ($s) {
 		case '4':
