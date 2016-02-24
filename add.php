@@ -2,7 +2,7 @@
 
 session_start();
 include_once('header.php');
-include_once('/var/www/html/hw5/hw5-lib.php');
+include_once('/var/www/html/hw6/hw6-lib.php');
 
 isset( $_REQUEST['s'] ) ? $s = strip_tags(trim($_REQUEST['s'])) : $s = "";
 isset( $_REQUEST['uname'] ) ? $uname = strip_tags(trim($_REQUEST['uname'])) : $uname = "";
@@ -21,7 +21,7 @@ icheck($bookid);
 $out ='';
 
 
-if ( $_SESSION['authenticated'] == "yes"){
+if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == "yes"){
 	handleCharacterForm();
 }else{
 	if($uname == null || $pwd == null){
