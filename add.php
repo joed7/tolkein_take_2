@@ -240,7 +240,6 @@ function authenticate($db,$postUser,$postPass){
 		if($stmt != null){
 			mysqli_stmt_bind_param($stmt,"s",$postUser);
 			mysqli_stmt_execute($stmt);
-			mysqli_stmt_close($stmt);
 			mysqli_stmt_bind_result($stmt,$uid,$pwd,$mail,$slt);
 
 			while(mysqli_stmt_fetch($stmt)){
