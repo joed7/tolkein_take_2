@@ -240,7 +240,7 @@ function authenticate($db,$postUser,$postPass){
 		if($stmt != null){
 			mysqli_stmt_bind_param($stmt,"s",$postUser);
 			mysqli_stmt_execute($stmt);
-			mysqli_stmt_bind_result($stmt,$uid,$pwd,$mail,$slt);
+			mysqli_stmt_bind_result($stmt,$uid,$mail,$pwd,$slt);
 
 			while(mysqli_stmt_fetch($stmt)){
 				 $userId =$uid;
@@ -260,8 +260,8 @@ function authenticate($db,$postUser,$postPass){
 				$_SESSION['ip']=$_SERVER['REMOTE_ADDR'];		
 			}else{
 				echo "Failed to login";
-				header("Location:/hw6/login.php");
-				exit;
+				#header("Location:/hw6/login.php");
+				#exit;
 			}
   
 
