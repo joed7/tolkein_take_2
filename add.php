@@ -24,8 +24,9 @@ $out ='';
 if ( $_SESSION['authenticated'] == "yes"){
 	handleCharacterForm();
 }else{
-	nullCheck($uname);
-	nullCheck($pwd);
+	if($uname == null || $pwd == null){
+		header("Location:/hw6/login.php");
+	}
 	connect($db);
 	authenticate($db,$uname,$pwd);
 }
