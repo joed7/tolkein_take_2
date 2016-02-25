@@ -22,7 +22,7 @@ $out ='';
 
 
 if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == "yes"){
-	handleCharacterForm();
+
 }else{
 	if($uname == null || $pwd == null){
 		header("Location:/hw6/login.php");
@@ -32,6 +32,7 @@ if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == "yes"){
 		header("Location:/hw6/login.php");
 	}
 }
+handleCharacterForm();
 
 echo $out;
 
