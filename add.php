@@ -515,7 +515,7 @@ function authenticate($db,$postUser,$postPass){
 
 
 			if( $epass == $password){
-				$_SESSION['userid']=$userid;
+				$_SESSION['userid']=$userId;
 				$_SESSION['email']=$email;	
 				$_SESSION['authenticated']="yes";							
 				$_SESSION['ip']=$_SERVER['REMOTE_ADDR'];	
