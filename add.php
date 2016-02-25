@@ -212,6 +212,55 @@ function handleCharacterForm(){
 				
 				
 				break;			
+			case 90:
+
+				if (adminCheck()){
+					$out  = $out. showAddUserForm();	
+				}else{
+					$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
+					exit; 
+				}
+				
+
+			case 91:
+				if ( adminCheck() ){
+
+				}else{
+					$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
+					exit; 
+				}
+				//add user
+				nullCheck($username);
+				nullCheck($password);
+				nullCheck($email);
+
+				$username=mysqli_real_escape_string($db,$username);
+				$password=mysqli_real_escape_string($db,$password);
+				$email=mysqli_real_escape_string($db,$email);
+				
+				$salt = rand(100,20000);
+				$hashed_salt=hash('sha256',$salt);
+
+				$epass=hash('sha256',$password.$hashed_salt);	
+
+				connect($db);
+
+				$query = "insert into users set userid=' ',username=?, email=?,password=?,salt=? ";
+
+				$stmt = mysqli_prepare($db,$query);
+	
+				try{				
+					if($stmt != null){
+						mysqli_stmt_bind_param($stmt,"sss",$username,$email,$epass,$hashed_salt);
+				    	mysqli_stmt_execute($stmt);
+						mysqli_stmt_close($stmt);
+					}
+	
+				}catch(Exception $e){
+					print "<b>Some error Occured while inserting"; 
+	      		 	exit;
+				}
+
 
 			default:
 				$out = $out . showCharacterForm();
@@ -219,60 +268,13 @@ function handleCharacterForm(){
 				break;
 		}
 
+		$out = $out . showLogoutLink();
+
 }
 
 
-function authenticate($db,$postUser,$postPass){
-
-	$userId= '';
-	$email= '';
-	$password = '';
-	$salt='';
-
-	$postUser=mysqli_real_escape_string($db,$postUser);
-	$postPass=mysqli_real_escape_string($db,$postPass);
-
-	$query = "select userid,email,password,salt from users where username=?";
-
-	$stmt = mysqli_prepare($db,$query);
-
-	try{				
-		if($stmt != null){
-			mysqli_stmt_bind_param($stmt,"s",$postUser);
-			mysqli_stmt_execute($stmt);
-			mysqli_stmt_bind_result($stmt,$uid,$mail,$pwd,$slt);
-
-			while(mysqli_stmt_fetch($stmt)){
-				 $userId =$uid;
-				 $email=$mail;
-				 $password=$pwd;
-				 $salt=$slt;
-			}
-
-			mysqli_stmt_close($stmt);
-			$epass=hash('sha256',$postPass.$salt);	
-
-
-			if( $epass == $password){
-				$_SESSION['userid']=$userid;
-				$_SESSION['email']=$email;	
-				$_SESSION['authenticated']="yes";							
-				$_SESSION['ip']=$_SERVER['REMOTE_ADDR'];		
-			}else{
-				echo "Failed to login";
-				#header("Location:/hw6/login.php");
-				#exit;
-			}
-  
-
-
-		}
-
-	}catch(Exception $e){
-		print "<b>Some error Occured"; 
-	 	exit;
-	}
-
+function showLogoutLink(){
+	return "<a href=logout.php>Logout</a>";
 }
 
 
@@ -423,6 +425,37 @@ function showAddPictureForm($name,$charid){
 	</form>";
 }
 
+
+function showAddUserForm(){
+	return "
+	<form method=post action=add.php>
+
+	<table>
+	<tr>
+	Add User Form
+	</tr>
+	<tr>
+		<td>Username:</td>
+		<td><input required type=\"text\" id=\"username\" name=\"username\"></td>
+	</tr>	
+	<tr>
+		<td>Password</td>
+		<td><input required type=\"password\" id=\"password\" name=\"password\"></td>
+	</tr>	
+	<tr>
+		<td>Email</td>
+		<td><input required type=\"password\" id=\"email\" name=\"email\"></td>
+	</tr>	
+	<tr>
+		<td>
+		<input id=\"s\" name=\"s\" type=\"hidden\" value=\"91\">
+		<input type=\"submit\" value=\"submit\">
+		</td>
+	</tr>
+	</table>
+	</form>";
+}
+
 function icheck($i){
 	if($i != null){
 		if(!is_numeric($i)){
@@ -439,5 +472,67 @@ function nullCheck($i){
 		exit; 
 	}
 }
+
+function adminCheck(){
+	if ( isset($_SESSION['userid'] && $_SESSION['userid'] == 1){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function authenticate($db,$postUser,$postPass){
+
+	$userId= '';
+	$email= '';
+	$password = '';
+	$salt='';
+
+	$postUser=mysqli_real_escape_string($db,$postUser);
+	$postPass=mysqli_real_escape_string($db,$postPass);
+
+	$query = "select userid,email,password,salt from users where username=?";
+
+	$stmt = mysqli_prepare($db,$query);
+
+	try{				
+		if($stmt != null){
+			mysqli_stmt_bind_param($stmt,"s",$postUser);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_bind_result($stmt,$uid,$mail,$pwd,$slt);
+
+			while(mysqli_stmt_fetch($stmt)){
+				 $userId =$uid;
+				 $email=$mail;
+				 $password=$pwd;
+				 $salt=$slt;
+			}
+
+			mysqli_stmt_close($stmt);
+			$epass=hash('sha256',$postPass.$salt);	
+
+
+			if( $epass == $password){
+				$_SESSION['userid']=$userid;
+				$_SESSION['email']=$email;	
+				$_SESSION['authenticated']="yes";							
+				$_SESSION['ip']=$_SERVER['REMOTE_ADDR'];		
+			}else{
+				echo "Failed to login";
+				#header("Location:/hw6/login.php");
+				#exit;
+			}
+  
+
+
+		}
+
+	}catch(Exception $e){
+		print "<b>Some error Occured"; 
+	 	exit;
+	}
+
+}
+
 
 ?>
