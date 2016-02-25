@@ -276,7 +276,7 @@ function handleCharacterForm(){
 }
 
 
-function showLogoutLink(){
+function showAuthFooterLink(){
 	return "<a href=logout.php>Logout</a>|<a href=add.php?s=90>add user</a>";
 }
 
