@@ -474,7 +474,7 @@ function nullCheck($i){
 }
 
 function adminCheck(){
-	if ( isset($_SESSION['userid'] && $_SESSION['userid'] == 1){
+	if ( isset($_SESSION['userid']) && $_SESSION['userid'] == 1){
 		return true;
 	}else{
 		return false;
