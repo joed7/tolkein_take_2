@@ -20,7 +20,6 @@ icheck($bookid);
 
 $out ='';
 
-var_dump($_SESSION);
 
 if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == "yes"){
 	handleCharacterForm();
@@ -29,7 +28,9 @@ if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == "yes"){
 		header("Location:/hw6/login.php");
 	}
 	connect($db);
-	authenticate($db,$uname,$pwd);
+	if (!authenticate($db,$uname,$pwd) ){
+		header("Location:/hw6/login.php");
+	}
 }
 
 echo $out;
@@ -517,9 +518,12 @@ function authenticate($db,$postUser,$postPass){
 				$_SESSION['userid']=$userid;
 				$_SESSION['email']=$email;	
 				$_SESSION['authenticated']="yes";							
-				$_SESSION['ip']=$_SERVER['REMOTE_ADDR'];		
+				$_SESSION['ip']=$_SERVER['REMOTE_ADDR'];	
+
+				return true;
 			}else{
 				echo "Failed to login";
+				return false;
 				#header("Location:/hw6/login.php");
 				#exit;
 			}
@@ -532,6 +536,8 @@ function authenticate($db,$postUser,$postPass){
 		print "<b>Some error Occured"; 
 	 	exit;
 	}
+
+	return false;
 
 }
 
