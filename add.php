@@ -22,7 +22,7 @@ $out ='';
 
 
 if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == "yes"){
-
+	handleCharacterForm();
 }else{
 	if($uname == null || $pwd == null){
 		header("Location:/hw6/login.php");
@@ -30,9 +30,10 @@ if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == "yes"){
 	connect($db);
 	if (!authenticate($db,$uname,$pwd) ){
 		header("Location:/hw6/login.php");
+	}else{
+		handleCharacterForm();
 	}
 }
-handleCharacterForm();
 
 echo $out;
 
@@ -226,9 +227,8 @@ function handleCharacterForm(){
 				
 
 			case 91:
-				if ( adminCheck() ){
+				if (!adminCheck()){
 
-				}else{
 					$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
 					exit; 
 				}
@@ -271,13 +271,13 @@ function handleCharacterForm(){
 				break;
 		}
 
-		$out = $out . showLogoutLink();
+		$out = $out . showAuthFooterLink();
 
 }
 
 
 function showLogoutLink(){
-	return "<a href=logout.php>Logout</a>";
+	return "<a href=logout.php>Logout</a>|<a href=add.php?s=90>add user</a>";
 }
 
 
