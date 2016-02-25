@@ -20,6 +20,7 @@ icheck($bookid);
 
 $out ='';
 
+var_dump($_SESSION);
 
 if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == "yes"){
 	handleCharacterForm();
