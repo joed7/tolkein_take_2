@@ -14,6 +14,10 @@ isset( $_REQUEST['curl'] ) ? $curl = strip_tags(trim($_REQUEST['curl'])) : $curl
 isset( $_REQUEST['charid'] ) ? $charid = strip_tags(trim($_REQUEST['charid'])) : $charid = "";
 isset( $_REQUEST['bookid'] ) ? $bookid = strip_tags(trim($_REQUEST['bookid'])) : $bookid = "";
 
+isset( $_REQUEST['username'] ) ? $username = strip_tags(trim($_REQUEST['username'])) : $username = "";
+isset( $_REQUEST['password'] ) ? $password = strip_tags(trim($_REQUEST['password'])) : $password = "";
+isset( $_REQUEST['email'] ) ? $email = strip_tags(trim($_REQUEST['email'])) : $email = "";
+
 icheck($s);
 icheck($charid);
 icheck($bookid);
@@ -446,7 +450,7 @@ function showAddUserForm(){
 	</tr>	
 	<tr>
 		<td>Email</td>
-		<td><input required type=\"password\" id=\"email\" name=\"email\"></td>
+		<td><input required type=\"text\" id=\"email\" name=\"email\"></td>
 	</tr>	
 	<tr>
 		<td>
