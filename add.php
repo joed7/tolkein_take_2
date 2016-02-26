@@ -227,14 +227,11 @@ function handleCharacterForm(){
 					$out  = $out. showAddUserForm();	
 				}else{
 					$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
-					exit; 
 				}
 				break;
 			case 91:
 				if (!adminCheck()){
-
 					$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
-					exit; 
 				}
 				global $username;
 				global $password;
@@ -266,7 +263,7 @@ function handleCharacterForm(){
 						mysqli_stmt_bind_param($stmt,"ssss",$username,$email,$epass,$hashed_salt);
 				    	mysqli_stmt_execute($stmt);
 						mysqli_stmt_close($stmt);
-						$out = $out . "Added new user<br>".$username;
+						$out = $out . "Added new user".$username . "<br>";
 					}
 	
 				}catch(Exception $e){
