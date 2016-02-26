@@ -287,6 +287,8 @@ function handleCharacterForm(){
 
 				break;	
 			case 93:
+				global $username;
+				
 				if (!adminCheck()){
 					$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
 				}
@@ -585,6 +587,43 @@ function adminCheck(){
 }
 
 function checkUserExists($db,$uname){
+
+	$userId= '';
+
+
+	$uname=mysqli_real_escape_string($db,$uname);
+
+	$query = "select userid from users where use username=?";
+
+	$stmt = mysqli_prepare($db,$query);
+
+	try{				
+		if($stmt != null){
+			mysqli_stmt_bind_param($stmt,"s",$uname);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_bind_result($stmt,$uid);
+
+			while(mysqli_stmt_fetch($stmt)){
+				 $userId =$uid;
+			}
+
+			mysqli_stmt_close($stmt);
+
+
+			if( $userId == $null){
+				return false;
+			}else{
+				return true;
+			}
+
+		}
+
+	}catch(Exception $e){
+		print "<b>Some error Occured"; 
+	 	exit;
+	}
+
+	return false;
 
 }
 
