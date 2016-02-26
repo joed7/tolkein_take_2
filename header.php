@@ -1,4 +1,10 @@
 <?php
+//Name: header.php
+//Purpose: header page
+//Author: Rohit Gupta rohit.gupta@colorado.edu
+//Version: 1.0
+//Date : 24-Feb-2016
+
 $header = '';
 
 $header = $header. "<html><head</head><body>";

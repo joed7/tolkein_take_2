@@ -1,5 +1,11 @@
 <?php
 
+//Name: add.php
+//Purpose: PHP file with add character, add user,update password functioanlity
+//Author: Rohit Gupta rohit.gupta@colorado.edu
+//Version: 1.0
+//Date : 24-Feb-2016
+
 session_start();
 include_once('header.php');
 include_once('/var/www/html/hw6/hw6-lib.php');
@@ -292,32 +298,41 @@ function handleCharacterForm(){
 
 				connect($db);
 
-				$username=mysqli_real_escape_string($db,$username);
-				$password=mysqli_real_escape_string($db,$password);
-				
-				$salt = rand(100,20000);
-				$hashed_salt=hash('sha256',$salt);
+				isUserExist = checkUserExists($db,$username);
 
-				$epass=hash('sha256',$password.$hashed_salt);	
+				if(!isUserExist){
+					$out = $out . $username . " user does not exist";
+				}else{
 
-				connect($db);
+					$username=mysqli_real_escape_string($db,$username);
+					$password=mysqli_real_escape_string($db,$password);
+					
+					$salt = rand(100,20000);
+					$hashed_salt=hash('sha256',$salt);
 
-				$query = "update users set password=?,salt=? where username=?";
+					$epass=hash('sha256',$password.$hashed_salt);	
 
-				$stmt = mysqli_prepare($db,$query);
-	
-				try{				
-					if($stmt != null){
-						mysqli_stmt_bind_param($stmt,"sss",$epass,$hashed_salt,$username);
-				    	mysqli_stmt_execute($stmt);
-						mysqli_stmt_close($stmt);
-						$out = $out . "Updated password for user:".$username ;
+					connect($db);
+
+					$query = "update users set password=?,salt=? where username=?";
+
+					$stmt = mysqli_prepare($db,$query);
+		
+					try{				
+						if($stmt != null){
+							mysqli_stmt_bind_param($stmt,"sss",$epass,$hashed_salt,$username);
+					    	mysqli_stmt_execute($stmt);
+							mysqli_stmt_close($stmt);
+							$out = $out . "Updated password for user:".$username ;
+						}
+		
+					}catch(Exception $e){
+						print "<b>Some error Occured while updating"; 
+		      		 	exit;
 					}
-	
-				}catch(Exception $e){
-					print "<b>Some error Occured while updating"; 
-	      		 	exit;
+
 				}
+
 
 				break;
 			default:
@@ -567,6 +582,10 @@ function adminCheck(){
 	}else{
 		return false;
 	}
+}
+
+function checkUserExists($db,$uname){
+
 }
 
 function authenticate($db,$postUser,$postPass){

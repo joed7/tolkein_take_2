@@ -1,5 +1,9 @@
 <?php
-
+//Name: login.php
+//Purpose: Login Page.
+//Author: Rohit Gupta rohit.gupta@colorado.edu
+//Version: 1.0
+//Date : 24-Feb-2016
 include_once('header.php');
 
 echo showLoginForm();

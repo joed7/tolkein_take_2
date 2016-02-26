@@ -1,9 +1,9 @@
 <?php
 //Name: index.php
-//Purpose: Create an application called tolkien making use of the security features taught in the class.
+//Purpose: Create an application called tolkien with authentication.
 //Author: Rohit Gupta rohit.gupta@colorado.edu
 //Version: 1.0
-//Date : 17-Feb-2016
+//Date : 24-Feb-2016
 
 include_once('/var/www/html/hw5/hw5-lib.php');
 
