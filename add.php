@@ -263,11 +263,59 @@ function handleCharacterForm(){
 						mysqli_stmt_bind_param($stmt,"ssss",$username,$email,$epass,$hashed_salt);
 				    	mysqli_stmt_execute($stmt);
 						mysqli_stmt_close($stmt);
-						$out = $out . "Added new user".$username . "<br>";
+						$out = $out . "Added new user".$username ;
 					}
 	
 				}catch(Exception $e){
 					print "<b>Some error Occured while inserting"; 
+	      		 	exit;
+				}
+
+				break;
+			case 92:
+					if (adminCheck()){
+						$out  = $out. showUpdatePasswordForm();	
+					}else{
+						$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
+					}
+
+				break;	
+			case 93
+				if (!adminCheck()){
+					$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
+				}
+				global $username;
+				global $password;
+				//add user
+				nullCheck($username);
+				nullCheck($password);
+
+				connect($db);
+
+				$username=mysqli_real_escape_string($db,$username);
+				$password=mysqli_real_escape_string($db,$password);
+				
+				$salt = rand(100,20000);
+				$hashed_salt=hash('sha256',$salt);
+
+				$epass=hash('sha256',$password.$hashed_salt);	
+
+				connect($db);
+
+				$query = "update users set password=?,salt=? where username=?";
+
+				$stmt = mysqli_prepare($db,$query);
+	
+				try{				
+					if($stmt != null){
+						mysqli_stmt_bind_param($stmt,"sss",$epass,$hashed_salt,$username);
+				    	mysqli_stmt_execute($stmt);
+						mysqli_stmt_close($stmt);
+						$out = $out . "Updated password for user".$username ;
+					}
+	
+				}catch(Exception $e){
+					print "<b>Some error Occured while updating"; 
 	      		 	exit;
 				}
 
@@ -278,13 +326,16 @@ function handleCharacterForm(){
 				break;
 		}
 
+		$out = $out . "<br>";
 		$out = $out . showAuthFooterLink();
 
 }
 
 
 function showAuthFooterLink(){
-	return "<a href=logout.php>Logout</a>|<a href=add.php?s=90>add user</a>";
+	return "<a href=logout.php>Logout</a>|
+	<a href=add.php?s=90>Add User</a>|
+	<a href=add.php?s=92>Update password</a>";
 }
 
 
@@ -464,6 +515,33 @@ function showAddUserForm(){
 	</tr>
 	</table>
 	</form>";
+}
+
+function showUpdatePasswordForm(){
+
+		return "
+	<form method=post action=add.php>
+
+	<table>
+	<tr>
+	Update User Form
+	</tr>
+	<tr>
+		<td>Username:</td>
+		<td><input required type=\"text\" id=\"username\" name=\"username\"></td>
+	</tr>	
+	<tr>
+		<td>Password</td>
+		<td><input required type=\"password\" id=\"password\" name=\"password\"></td>
+	</tr>		
+	<tr>
+		<td>
+		<input id=\"s\" name=\"s\" type=\"hidden\" value=\"93\">
+		<input type=\"submit\" value=\"submit\">
+		</td>
+	</tr>
+	</table>
+	</form>";	
 }
 
 function icheck($i){
