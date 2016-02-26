@@ -593,7 +593,7 @@ function checkUserExists($db,$uname){
 
 	$uname=mysqli_real_escape_string($db,$uname);
 
-	$query = "select userid from users where use username=?";
+	$query = "select userid from users where  username=?";
 
 	$stmt = mysqli_prepare($db,$query);
 
