@@ -22,10 +22,6 @@ icheck($s);
 icheck($charid);
 icheck($bookid);
 
-var_dump($_REQUEST);
-
-var_dump($username);
-
 $out ='';
 
 
@@ -48,6 +44,7 @@ echo $out;
 function handleCharacterForm(){
 		global $s;
 		global  $out;
+
 
 		switch ($s) {
 		case '4':
@@ -239,6 +236,9 @@ function handleCharacterForm(){
 					$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
 					exit; 
 				}
+				global $username;
+				global $password;
+				global $email;
 				//add user
 				nullCheck($username);
 				nullCheck($password);
