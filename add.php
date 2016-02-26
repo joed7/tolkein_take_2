@@ -280,7 +280,7 @@ function handleCharacterForm(){
 					}
 
 				break;	
-			case 93
+			case 93:
 				if (!adminCheck()){
 					$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
 				}
