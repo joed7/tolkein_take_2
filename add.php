@@ -263,7 +263,7 @@ function handleCharacterForm(){
 						mysqli_stmt_bind_param($stmt,"ssss",$username,$email,$epass,$hashed_salt);
 				    	mysqli_stmt_execute($stmt);
 						mysqli_stmt_close($stmt);
-						$out = $out . "Added new user".$username ;
+						$out = $out . "Added new user:".$username ;
 					}
 	
 				}catch(Exception $e){
@@ -311,7 +311,7 @@ function handleCharacterForm(){
 						mysqli_stmt_bind_param($stmt,"sss",$epass,$hashed_salt,$username);
 				    	mysqli_stmt_execute($stmt);
 						mysqli_stmt_close($stmt);
-						$out = $out . "Updated password for user".$username ;
+						$out = $out . "Updated password for user:".$username ;
 					}
 	
 				}catch(Exception $e){
