@@ -260,6 +260,7 @@ function handleCharacterForm(){
 						mysqli_stmt_bind_param($stmt,"sss",$username,$email,$epass,$hashed_salt);
 				    	mysqli_stmt_execute($stmt);
 						mysqli_stmt_close($stmt);
+						$out = $out . "Added new user".$username;
 					}
 	
 				}catch(Exception $e){
@@ -267,7 +268,7 @@ function handleCharacterForm(){
 	      		 	exit;
 				}
 
-
+				break;
 			default:
 				$out = $out . showCharacterForm();
 
