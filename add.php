@@ -245,7 +245,7 @@ function handleCharacterForm(){
 				nullCheck($email);
 
 				connect($db);
-				
+
 				$username=mysqli_real_escape_string($db,$username);
 				$password=mysqli_real_escape_string($db,$password);
 				$email=mysqli_real_escape_string($db,$email);
@@ -263,10 +263,10 @@ function handleCharacterForm(){
 	
 				try{				
 					if($stmt != null){
-						mysqli_stmt_bind_param($stmt,"sss",$username,$email,$epass,$hashed_salt);
+						mysqli_stmt_bind_param($stmt,"ssss",$username,$email,$epass,$hashed_salt);
 				    	mysqli_stmt_execute($stmt);
 						mysqli_stmt_close($stmt);
-						$out = $out . "Added new user".$username;
+						$out = $out . "Added new user<br>".$username;
 					}
 	
 				}catch(Exception $e){
