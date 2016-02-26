@@ -22,6 +22,10 @@ icheck($s);
 icheck($charid);
 icheck($bookid);
 
+var_dump($_REQUEST);
+
+var_dump($username;
+	
 $out ='';
 
 
@@ -466,7 +470,7 @@ function showAddUserForm(){
 function icheck($i){
 	if($i != null){
 		if(!is_numeric($i)){
-			print "<b> ERROR: </b> some integer error occured";
+			print "<b> ERROR: </b> some error occured";
 			exit; 
 		}
 	}
@@ -475,7 +479,7 @@ function icheck($i){
 
 function nullCheck($i){
 	if($i == null){
-		print "<b> ERROR: </b> some null error occured";
+		print "<b> ERROR: </b> some error occured";
 		exit; 
 	}
 }
