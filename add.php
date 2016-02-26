@@ -610,7 +610,7 @@ function checkUserExists($db,$uname){
 			mysqli_stmt_close($stmt);
 
 
-			if( $userId == $null){
+			if( $userId == null){
 				return false;
 			}else{
 				return true;
