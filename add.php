@@ -24,8 +24,8 @@ icheck($bookid);
 
 var_dump($_REQUEST);
 
-var_dump($username;
-	
+var_dump($username);
+
 $out ='';
 
 
