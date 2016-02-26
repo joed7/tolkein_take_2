@@ -288,7 +288,7 @@ function handleCharacterForm(){
 				break;	
 			case 93:
 				global $username;
-				
+
 				if (!adminCheck()){
 					$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
 				}
@@ -300,9 +300,9 @@ function handleCharacterForm(){
 
 				connect($db);
 
-				isUserExist = checkUserExists($db,$username);
+				$isUserExist = checkUserExists($db,$username);
 
-				if(!isUserExist){
+				if(!$isUserExist){
 					$out = $out . $username . " user does not exist";
 				}else{
 
