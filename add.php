@@ -224,8 +224,7 @@ function handleCharacterForm(){
 					$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
 					exit; 
 				}
-				
-
+				break;
 			case 91:
 				if (!adminCheck()){
 
