@@ -338,10 +338,11 @@ function handleCharacterForm(){
 
 				break;
 			case 94:
+				connect($db);
+
 				$stmt = mysqli_prepare($db,"select username from users");
 				$users=array();
-				connect($db);
-				
+
 				if($stmt != null){
 			    	mysqli_stmt_execute($stmt);
 			    	mysqli_stmt_bind_result($stmt,$username);
