@@ -371,12 +371,13 @@ function handleCharacterForm(){
 function printUsers($users){
 
 	$output = '<b>Registered Users for the app</b>';
-
+	$output = $output . '<table>';
 	foreach ($users as $user) {
 		$output = $output.'<tr>';
 		$output = $output.'<td>'.$user."</td>";
 		$output = $output.'</tr>';		
 	}
+	$output = $output . '</table>';	
 	return $output;
 
 }
