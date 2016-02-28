@@ -338,6 +338,10 @@ function handleCharacterForm(){
 
 				break;
 			case 94:
+				if (!adminCheck()){
+					$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
+				}
+							
 				connect($db);
 
 				$stmt = mysqli_prepare($db,"select username from users");
