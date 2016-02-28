@@ -337,6 +337,23 @@ function handleCharacterForm(){
 
 
 				break;
+			case 94:
+				$stmt = mysqli_prepare($db,"select username from users");
+				$users=array();
+				
+				if($stmt != null){
+			    	mysqli_stmt_execute($stmt);
+			    	mysqli_stmt_bind_result($stmt,$username);
+	                while(mysqli_stmt_fetch($stmt)){
+	                	$uname = htmlspecialchars($username);	
+	                	array_push($users,$uname) ;
+					}	
+
+					mysqli_stmt_close($stmt);
+				}
+				
+				$out = $out . printUsers($users);		
+				break;	
 			default:
 				$out = $out . showCharacterForm();
 
@@ -348,6 +365,18 @@ function handleCharacterForm(){
 
 }
 
+function printUsers($users){
+
+	$output = '<b>Registered Users for the app</b>';
+
+	foreach ($users as $user) {
+		$output = $output.'<tr>';
+		$output = $output.'<td>'.$user."</td>";
+		$output = $output.'</tr>';		
+	}
+	return $output;
+
+}
 
 function showAuthFooterLink(){
 	if(adminCheck()){
