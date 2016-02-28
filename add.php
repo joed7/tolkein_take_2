@@ -350,9 +350,15 @@ function handleCharacterForm(){
 
 
 function showAuthFooterLink(){
-	return "<a href=logout.php>Logout</a>|
+	if(adminCheck()){
+		return "<a href=logout.php>Logout</a>|
 	<a href=add.php?s=90>Add User</a>|
-	<a href=add.php?s=92>Update password</a>";
+	<a href=add.php?s=92>Update password</a>|
+	<a href=add.php?s=94>ShowUsers</a>";		
+	}else{
+		return "<a href=logout.php>Logout</a>";
+	}
+
 }
 
 
