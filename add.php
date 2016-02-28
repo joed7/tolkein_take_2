@@ -340,26 +340,27 @@ function handleCharacterForm(){
 			case 94:
 				if (!adminCheck()){
 					$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
-				}
-							
-				connect($db);
+				}else{
+					connect($db);
 
-				$stmt = mysqli_prepare($db,"select username from users");
-				$users=array();
+					$stmt = mysqli_prepare($db,"select username from users");
+					$users=array();
 
-				if($stmt != null){
-			    	mysqli_stmt_execute($stmt);
-			    	mysqli_stmt_bind_result($stmt,$username);
+					if($stmt != null){
+				    	mysqli_stmt_execute($stmt);
+				    	mysqli_stmt_bind_result($stmt,$username);
 
-	                while(mysqli_stmt_fetch($stmt)){
-	                	$uname = htmlspecialchars($username);	
-	                	array_push($users,$uname) ;
-					}	
+		                while(mysqli_stmt_fetch($stmt)){
+		                	$uname = htmlspecialchars($username);	
+		                	array_push($users,$uname) ;
+						}	
 
-					mysqli_stmt_close($stmt);
-				}
-				
-				$out = $out . printUsers($users);		
+						mysqli_stmt_close($stmt);
+					}
+					
+					$out = $out . printUsers($users);		
+			}
+
 				break;	
 			default:
 				$out = $out . showCharacterForm();
